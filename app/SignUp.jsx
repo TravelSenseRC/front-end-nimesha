@@ -5,6 +5,27 @@ import { Text, View ,StyleSheet,ImageBackground,Image, Pressable,SafeAreaView, T
 
 export default function SignUp() {
   const router = useRouter();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignUp = async () => {
+    try {
+      const response = await axios.post('http://your-backend-api-url/signup', {
+        username,
+        email,
+        password,
+      });
+      if (response.data.success) {
+        Alert.alert('Success', 'User registered successfully');
+      } else {
+        Alert.alert('Error', response.data.message);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'An error occurred. Please try again later.');
+    }
+  };
+
   
   return (
     
@@ -22,21 +43,27 @@ export default function SignUp() {
         <View style={styles.child02}>
           <Text style={styles.subtitle}>Name</Text>
           <View style={styles.textinputfield}>
-          <TextInput style={styles.textinput} placeholder="John Doe"></TextInput>
+          <TextInput style={styles.textinput}  value={username}
+            onChangeText={setUsername} placeholder="John Doe"></TextInput>
           </View>
         </View>
 
         <View style={styles.child03}>
           <Text style={styles.subtitle}>E-mail</Text>
           <View style={styles.textinputfield}>
-          <TextInput style={styles.textinput} placeholder="johndoe@gmail.com"></TextInput>
+          <TextInput style={styles.textinput}  value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none" placeholder="johndoe@gmail.com"></TextInput>
           </View>
         </View>
 
         <View style={styles.child04}>
           <Text style={styles.subtitle}>Password</Text>
           <View style={styles.textinputfield}>
-          <TextInput style={styles.textinput} placeholder="**********"></TextInput>
+          <TextInput style={styles.textinput}  value={password}
+            onChangeText={setPassword}
+            secureTextEntry placeholder="**********"></TextInput>
           </View>
         </View>
 
@@ -55,7 +82,7 @@ export default function SignUp() {
 
         <View style={styles.child06}>
           <Text style={styles.subtitle}>Already have an account?</Text>
-          <Text style={styles.linkedtext} onPress={()=>router.push('/SignIn')}>Sign-in</Text>
+          <Text style={styles.linkedtext} onPress={()=>{router.push('/SignIn');handleSignUp}}>Sign-in</Text>
         </View>
 
         </View>

@@ -13,8 +13,8 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigation = useNavigation();
-  navigation.navigate('Home')
+  //const navigation = useNavigation();
+  //navigation.navigate('Home')
 
   const handleSignIn = async () => {
     setLoading(true);
