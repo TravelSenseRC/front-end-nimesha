@@ -11,7 +11,7 @@ export default function SignUp() {
 
   const handleSignUp = async () => {
     try {
-      const response = await axios.post('http://your-backend-api-url/signup', {
+      const response = await axios.post('http://127.0.0.1:8089/users/', {
         username,
         email,
         password,
@@ -70,7 +70,7 @@ export default function SignUp() {
         <View style={styles.child05}>
           <Text style={styles.subtitle}>Confirm Password</Text>
           <View style={styles.textinputfield}>
-          <TextInput style={styles.textinput} placeholder="**********"></TextInput>
+          <TextInput style={styles.textinput} secureTextEntry placeholder="**********"></TextInput>
           </View>
         </View>
 

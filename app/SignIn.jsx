@@ -20,7 +20,7 @@ export default function SignIn() {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://your-backend-url.com/api/signin', {
+      const response = await axios.get('http://127.0.0.1:8089/users/', {
         email,
         password,
       });
