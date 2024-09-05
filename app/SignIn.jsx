@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import axios from 'axios';
 import React from "react";
 import { Text, View ,StyleSheet,ImageBackground,Image, Pressable,SafeAreaView, TextInput} from "react-native";
 import CheckBox from 'expo-checkbox';
@@ -8,6 +9,35 @@ export default function SignIn() {
 
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
+  navigation.navigate('Home')
+
+  const handleSignIn = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axios.post('https://your-backend-url.com/api/signin', {
+        email,
+        password,
+      });
+
+      if (response.data.success) {
+        Alert.alert('Success', 'You have signed in successfully!');
+        
+      } else {
+        Alert.alert('Error', response.data.message || 'Sign-in failed!');
+      }
+    } catch (error) {
+      console.error('Error signing in:', error);
+      Alert.alert('Error', 'An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     
@@ -24,14 +54,19 @@ export default function SignIn() {
         <View style={styles.child02}>
           <Text style={styles.subtitle}>E-mail</Text>
           <View style={styles.textinputfield}>
-          <TextInput style={styles.textinput} placeholder="user@email.com"></TextInput>
+          <TextInput style={styles.textinput}  value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none" placeholder="user@email.com"></TextInput>
           </View>
         </View>
 
         <View style={styles.child03}>
           <Text style={styles.subtitle}>Password</Text>
           <View style={styles.textinputfield}>
-          <TextInput style={styles.textinput} placeholder="**********"></TextInput>
+          <TextInput style={styles.textinput}   value={password}
+            onChangeText={setPassword}
+            secureTextEntry placeholder="**********"></TextInput>
           </View>
         </View>
 
@@ -48,7 +83,7 @@ export default function SignIn() {
           <Text style={styles.linkedtext} onPress={()=>router.push('/ForgetPassword')}>Forget Passsword</Text>
         </View>
 
-        <Pressable style={styles.button} onPress={()=>router.push('/OnBoard02')}>
+        <Pressable style={styles.button} onPress={()=>{router.push('/Home');handleSignIn}}>
           <Text style={styles.buttonText}>Sign in</Text>
         </Pressable>
 
