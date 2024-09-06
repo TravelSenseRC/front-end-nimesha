@@ -83,7 +83,7 @@ export default function SignIn() {
           <Text style={styles.linkedtext} onPress={()=>router.push('/ForgetPassword')}>Forget Passsword</Text>
         </View>
 
-        <Pressable style={styles.button} onPress={()=>{router.push('/Home');handleSignIn}}>
+        <Pressable style={styles.button} onPress={()=>{router.push('/HomeScreenMain');handleSignIn}}>
           <Text style={styles.buttonText}>Sign in</Text>
         </Pressable>
 

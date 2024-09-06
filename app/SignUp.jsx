@@ -82,7 +82,7 @@ export default function SignUp() {
 
         <View style={styles.child06}>
           <Text style={styles.subtitle}>Already have an account?</Text>
-          <Text style={styles.linkedtext} onPress={()=>{router.push('/SignIn');handleSignUp}}>Sign-in</Text>
+          <Text style={styles.linkedtext} onPress={()=>{router.push('/HomeScreenMain');handleSignUp}}>Sign-in</Text>
         </View>
 
         </View>
